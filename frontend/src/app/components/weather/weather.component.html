@@ -1,0 +1,37 @@
+<app-banner [a]="title"></app-banner>
+
+  
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <form [formGroup]="weatherForm">
+            <div class="form-group">
+              <input type="text" formControlName="City" class="form-control" placeholder="City">
+            </div>
+            <div *ngIf="weatherForm.controls['City'].hasError('required') && weatherForm.controls['City'].touched || 
+            weatherForm.controls['City'].dirty">
+            <div *ngIf="weatherForm.controls['City'].hasError('required')">
+              First Name is required.
+            </div>
+           
+            </div>
+           
+          
+        
+            <div class="form-group">
+              <input type="submit" (click)="search()" class="btn btn-primary py-3 px-5" value="Search">
+            </div>
+          </form>  
+          <div>
+            <p>humidity:{{resultApi.humidity}}</p>
+            <p>temperature:{{resultApi.temperature}}</p>
+        <p>pressure:{{resultApi.pressure}}</p>
+        <p>speed:{{resultApi.speed}}</p>
+        <img [src]="resultApi.icon" alt="">  
+        </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>

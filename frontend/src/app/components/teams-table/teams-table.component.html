@@ -1,0 +1,26 @@
+<div class="widget-next-match">
+    <table class="table custom-table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Foundation</th>
+          <th>Owner</th>
+          <th *ngIf="isDisplayed == true">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+     <tr *ngFor="let t of teams">
+          <td>{{t._id}}</td>
+          <td><strong class="text-white">{{t.Name}}</strong></td>
+          <td>{{t.Foundation}}</td>
+          <td>{{t.Owner}}</td>
+          
+          
+          <td *ngIf="isDisplayed == true"><button class="btn btn-success" (click)="goToDispaly(t._id)">Display</button><button class="btn btn-warning">Edit</button><button class="btn btn-danger">Delete</button></td>
+     </tr>
+
+
+      </tbody>
+    </table>
+  </div>

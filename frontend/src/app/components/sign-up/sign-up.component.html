@@ -1,0 +1,149 @@
+<app-banner banner="Signup"></app-banner>
+<div class="container">
+    <h1 class="form-title" >{{title}}</h1>
+    <div class="alert alert-danger" role="alert">
+      {{errormsg}}
+    </div>
+
+    <form action="#" [formGroup]="FormInput" >
+   
+      <div class="main-user-info" >
+        
+        <div class="user-input-box">
+          <label for="fullName">Full Name</label>
+          <input type="text"
+                  id="fullName"
+                  name="fullName"
+                  formControlName="fullName"
+                  placeholder="Enter Full Name"   [(ngModel)]="users.fullName"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['fullName'].hasError('required')">
+                    fullName is required
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+        </div>
+        <div class="user-input-box">
+          <label for="username">Username</label>
+          <input type="text"
+                  id="username"
+                  name="userName"
+                  formControlName="userName"
+                  placeholder="Enter Username" [(ngModel)]="users.userName"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['userName'].hasError('required')">
+                    Username is required.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+        </div>
+        <div class="user-input-box">
+          <label for="email">Email</label>
+          <input type="email"
+                  id="email"
+                  name="email"
+                  formControlName="email"
+                  placeholder="Enter Email" [(ngModel)]="users.email"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['email'].hasError('required')">
+                    Email address is required.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['email'].hasError('email')">
+                    Please enter a valid email address.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+        </div>
+        <div class="user-input-box">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="text"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  formControlName="phoneNumber"
+                  placeholder="Enter Phone Number" [(ngModel)]="users.phoneNumber"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['phoneNumber'].hasError('required')">
+                    Phone number is required.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['phoneNumber'].hasError('pattern')">
+                    Please enter a valid phone number.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+        </div>
+        <div class="user-input-box">
+          <label for="password">Password</label>
+          <input type="password"
+                  id="password"
+                  name="password"
+                  formControlName="password"
+                  placeholder="Enter Password"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['password'].hasError('required')">
+                    Password is required.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['password'].hasError('minlength')">
+                    The password must be at least 8 characters long.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['password'].hasError('pattern')">
+                    The password must include at least one uppercase letter, one lowercase letter, one number, and one special character.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>  
+                </div>
+        </div>
+        <div class="user-input-box">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  formControlName="confirmPassword"
+                  placeholder="Confirm Password"/>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['confirmPassword'].hasError('required')">
+                    Password is required.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['confirmPassword'].hasError('minlength')">
+                    The password must be at least 8 characters long.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert"  *ngIf="FormInput.controls['confirmPassword'].hasError('pattern')">
+                    The password must include at least one uppercase letter, one lowercase letter, one number, and one special character.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                </div>
+                  <div class="alert alert-warning alert-dismissible fade show" *ngIf="passwordMatchValidator()" role="alert">
+                    Password confirmation is required and must match the password 
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>  
+                </div>
+        </div>
+      </div>
+      <div class="gender-details-box">
+        <span class="gender-title">Gender</span>
+        <div class="gender-category">
+            <input type="radio" name="gender" id="male" value="male" formControlName="gender">
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="female" formControlName="gender">
+            <label for="female">Female</label>
+         
+        
+            <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['gender'].hasError('required')">
+                Please select a genre.              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show" *ngIf="FormInput.controls['gender'].hasError('pattern')">
+                Please select a valid gender.              
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </div>
+      </div>
+      <!-- <div class="user-input-box">
+        <label for="role">Role</label>
+      
+        <select class="form-select form-select-lg mb-3" aria-label="Large select example"
+          id="role"
+                name="role"
+                formControlName="role"  >
+                  <option  style="font-size: 2rem;" selected>lawyer</option>
+                  <option style="font-size: 2rem;">Client</option>
+                </select>
+                <div class="alert alert-warning alert-dismissible fade show" *ngIf="!FormInput.pristine && FormInput.controls['role'].hasError('required')">
+                Role is required.                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+             
+      </div> -->
+      <!-- <div class="form-submit-btn">
+
+  <input type="file" value="Register Avatar"  name="img" (change)="onImageSelected($event)"  >
+  <img [src]="imagePreview"  alt="">
+      </div> -->
+      <div class="form-submit-btn">
+        <input type="submit" [value]="title" (click)="signup()" [disabled]="FormInput.invalid">
+      </div>
+    </form>
+  </div>

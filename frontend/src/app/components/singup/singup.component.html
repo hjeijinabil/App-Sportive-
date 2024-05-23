@@ -1,0 +1,49 @@
+<app-banner [a]="title"></app-banner>
+
+  
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <form [formGroup]="signupForm">
+            <div class="form-group">
+              <input type="text" formControlName="FirstName" class="form-control" placeholder="FirstName">
+            </div>
+            <div *ngIf="signupForm.controls['FirstName'].hasError('required') && signupForm.controls['FirstName'].touched || 
+            signupForm.controls['FirstName'].dirty">
+            <div *ngIf="signupForm.controls['FirstName'].hasError('required')">
+              First Name is required.
+            </div>
+            <div *ngIf="signupForm.controls['FirstName'].hasError('minlength')">
+              <div class="error-message">First Name should have at least 3 characters.</div>
+            </div>
+            </div>
+            
+            <div class="form-group">
+              <input type="text" formControlName="LastName"   class="form-control" placeholder="LastName">
+            </div>
+            <div class="form-group">
+                <input type="email"  formControlName="Email"   class="form-control" placeholder="Email">
+              </div>
+              <div *ngIf="signupForm.controls['Email'].hasError('required') && 
+              signupForm.controls['Email'].touched || signupForm.controls['Email'].dirty ">
+              <div *ngIf="signupForm.controls['Email'].hasError('required')">Email is required</div>
+              <div *ngIf="signupForm.controls['Email'].hasError('email')">Not Email !!!!!!!</div>
+            </div>
+              <div class="form-group">
+                <input type="password" formControlName="password"   class="form-control" placeholder="password">
+              </div>
+              <div class="form-group">
+                <input type="text" formControlName="telephone"  class="form-control" placeholder="telephone">
+              </div>
+            
+        
+            <div class="form-group">
+              <input type="submit" (click)="signup()" class="btn btn-primary py-3 px-5" value="Singup">
+            </div>
+          </form>  
+        </div>
+       
+      </div>
+    </div>
+  </div>

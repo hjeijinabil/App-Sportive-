@@ -1,0 +1,6 @@
+<app-banner [a]="title"></app-banner>
+<div *ngIf="matches.length == 0" class="text-danger">Matches Not found</div>
+<div *ngFor="let match of matches">
+  <app-result [x]="match"></app-result>
+
+</div>

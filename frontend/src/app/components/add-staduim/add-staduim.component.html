@@ -1,0 +1,41 @@
+<app-banner [a]="title"></app-banner>
+
+  
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <form [formGroup]="addStaduimForm">
+            <div class="form-group">
+              <input type="text" formControlName="name" class="form-control" placeholder="name">
+            </div>
+            <div *ngIf="addStaduimForm.controls['name'].hasError('required') &&addStaduimForm.controls['name'].touched || 
+          addStaduimForm.controls['name'].dirty">
+            <div *ngIf="addStaduimForm.controls['name'].hasError('required')">
+              First Name is required.
+            </div>
+            <div *ngIf="addStaduimForm.controls['name'].hasError('minlength')">
+              <div class="error-message">First Name should have at least 3 characters.</div>
+            </div>
+            </div>
+            
+            <div class="form-group">
+              <input type="text" formControlName="city"   class="form-control" placeholder="city">
+            </div>
+           
+            
+              <div class="form-group">
+                <input type="number" formControlName="capacity"   class="form-control" placeholder="capacity">
+              </div>
+             
+            
+        
+            <div class="form-group">
+              <input type="submit" (click)="addStaduim()" class="btn btn-primary py-3 px-5" value="addStaduim">
+            </div>
+          </form>  
+        </div>
+       
+      </div>
+    </div>
+  </div>

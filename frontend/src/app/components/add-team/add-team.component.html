@@ -1,0 +1,35 @@
+<app-banner [a]="title"></app-banner>
+
+  
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7">
+          <form #teamForm="ngForm" (ngSubmit)="Enregistrerteam()">
+            <div class="form-group">
+              <input type="text" [(ngModel)]="objj.Name" name="Name" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <input type="text"   [(ngModel)]="objj.Foundation" name="Foundation" class="form-control" placeholder="Foundation">
+            </div>
+            
+              <div class="form-group">
+                <input type="text" [(ngModel)]="objj.Owner" name="Owner" class="form-control" placeholder="Owner">
+              </div>
+             
+            
+        
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary py-3 px-5" value="Add">
+            </div >
+
+            <!-- <div class="form-control">
+<input type="file" (change)="onImageSelected($event)" #filepicker style="visibility: hidden;" >
+
+            </div> -->
+          </form>  
+        </div>
+       
+      </div>
+    </div>
+  </div>
