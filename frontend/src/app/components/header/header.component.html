@@ -25,10 +25,10 @@
             <li><a routerLink="allPlayers" class="nav-link">Players</a></li>
             <li><a routerLink="allTeams" class="nav-link">Teams</a></li>
             <li><a routerLink="search-match" class="nav-link">Search-Match</a></li>
-            <li><a routerLink="addstaduim" class="nav-link">Add-Staduim</a></li>
+            <li><a routerLink="addstaduim" class="nav-link" *ngIf="isConnected()">Add-Staduim</a></li>
             <li><div class="dropdown">
 
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button *ngIf="isAdmin()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Admin
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -39,8 +39,10 @@
 
               </div>
             </div></li>
-            <li><a routerLink="/signin" class="nav-link">Login</a></li>
-            <li><a routerLink="/signup" class="nav-link">Signup</a></li>
+            <li><a routerLink="/signin" class="nav-link" *ngIf="!isConnected()">Login</a></li>
+            <li><a routerLink="/signup" class="nav-link" *ngIf="!isConnected()">Signup</a></li>
+            <li><a *ngIf="isConnected()" (click)="logut()" class="nav-link">LogOUt</a></li>
+
 
            </ul>
         </nav>

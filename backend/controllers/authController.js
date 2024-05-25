@@ -45,6 +45,8 @@ app.use(
              fullName: req.body.fullName,
              phoneNumber: req.body.phoneNumber,
              gender: req.body.gender,
+             gender: req.body.role,
+
             //  avatar: `http://localhost:3000/images/${req.file.filename}`
              // ... other fields of the model
          });
@@ -89,7 +91,8 @@ const login = async (req, res) => {
             id: doc._id,
             email: doc.email,
             gender: doc.gender,
-            phoneNumber: doc.phoneNumber
+            phoneNumber: doc.phoneNumber,
+            role: doc.role
         };
         console.log(userToSend)
 

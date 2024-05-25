@@ -10,13 +10,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/users', authRouter);
-mongoose.connect('mongodb+srv://wajdibejaoui26:1234@cluster0.azs73u3.mongodb.net/AppSport?retryWrites=true&w=majority')
+//mongoose.connect('mongodb+srv://wajdibejaoui26:1234@cluster0.azs73u3.mongodb.net/AppSport?retryWrites=true&w=majority')
 
-// mongoose.connect('mongodb://localhost:27017/Sport', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   autoCreate: true // Ajout de l'option autoCreate
-// });
+mongoose.connect('mongodb://localhost:27017/Sport', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoCreate: true // Ajout de l'option autoCreate
+});
 
 const db = mongoose.connection;
 
