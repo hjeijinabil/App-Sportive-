@@ -25,43 +25,40 @@ app.use(
  
   
  
- 
- const register =  async (req, res) => {
-     console.log("here sign up");
-     console.log("tt", req.body);
-     try {
-         // Check if the email already exists in the database
-         const existingUser = await User.findOne({ email: req.body.email });
-         if (existingUser) {
-             return res.json({ msg: 'E-mail already exists' });
-         }
+const register = async (req, res) => {
+  
+    try {
+        // Vérifiez si l'email existe déjà dans la base de données
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            // Retourner un statut 400 si l'email existe déjà
+            return res.status(400).json({ msg: 'Email already exists' });
+        }
 
-         // Create the avatar URL using the uploaded file
-         // Create a new user with the hashed password
-         const newUser = new User({
-             email: req.body.email,
-             password: req.body.password,
-             userName: req.body.userName,
-             fullName: req.body.fullName,
-             phoneNumber: req.body.phoneNumber,
-             gender: req.body.gender,
-             gender: req.body.role,
+        // Créer un nouvel utilisateur avec le mot de passe haché
+        const newUser = new User({
+            email: req.body.email,
+            password: req.body.password,
+            userName: req.body.userName,
+            fullName: req.body.fullName,
+            phoneNumber: req.body.phoneNumber,
+            gender: req.body.gender,
+            role: req.body.role, // Correction: "gender" répété auparavant
 
-            //  avatar: `http://localhost:3000/images/${req.file.filename}`
-             // ... other fields of the model
-         });
- 
-         // Save the user to the database
-         await newUser.save();
+            // avatar: `http://localhost:3000/images/${req.file.filename}` si vous avez une image de profil
+        });
+
+        // Sauvegardez l'utilisateur dans la base de données
+        await newUser.save();
         
-        
-        
-         res.json({ msg: 'Registered successfully' });
-     } catch (error) {
-         console.error('Error during user registration:', error);
-         res.json({ msg: 'Internal server error' });
-     }
- };
+        // Retourner un message de succès
+        res.json({ msg: 'Registered successfully' });
+    } catch (error) {
+        console.error('Error during user registration:', error);
+        res.status(500).json({ msg: 'Internal server error' });  // Statut 500 en cas d'erreur serveur
+    }
+};
+
  
 
 
@@ -73,7 +70,7 @@ const login = async (req, res) => {
     const doc = await User.findOne({ email: user.email })
         // Email not found
         if (!doc) {
-            return res.json({ msg: "Please check your Email" });
+            return res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Please check your Password" });
         }
     
 
@@ -81,8 +78,7 @@ const login = async (req, res) => {
         const pwdResult = await doc.comparePassword(user.password);
         // Passwords do not match
         if (!pwdResult) {
-            console.log("here")
-            return res.json({ msg: "Please check your Password" }).status(StatusCodes.UNAUTHORIZED);
+return res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Please check your Password" });
         }
 
         let userToSend = {
@@ -97,7 +93,7 @@ const login = async (req, res) => {
         console.log(userToSend)
 
         const token = jwt.sign(userToSend, secretKey, { expiresIn: '24h' });
-        
+        console.log("Token  : ",token);
 
         res.json({ msg: "Welcome", token: token });
 }

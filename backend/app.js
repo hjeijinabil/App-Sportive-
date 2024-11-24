@@ -78,7 +78,6 @@ const Match = require('./Models/match');
 const Player = require('./Models/player');
 
 const Team = require('./Models/team');
-const team = require('./Models/team');
 //bl search match
 app.post("/search", async (req,res)=>
 {
@@ -95,7 +94,11 @@ app.post("/search", async (req,res)=>
   else{
   console.log("here match search", mergedResults);
   res.json({matchSearch:mergedResults});}
+
 })
+app.get("/use",(req,res)=>{
+
+res.send("hello wrld");})
 // Bl add match
 app.post("/teams",(req,res)=>{
   console.log("here teams", req.body);
@@ -109,34 +112,46 @@ app.post("/teams",(req,res)=>{
   res.json({msg:"added"});
 });
 //bl add playeer
-app.post("/players",(req,res)=>{
-  console.log("here plaers", req.body);
-Team.findById(req.body.tId).then(
-  (team)=>{
-if(!team){
-return  res.json({msg:"Team Not found"})
-}
-  let playerToSend = new Player({
-    name : req.body.name,
-    age: req.body.age,
-    position : req.body.position,
-    numberr : req.body.numberr,
-    team: team._id
-  })
-  playerToSend.save((err, doc)=>
-  {
-    if(err){
-      res.json({msg:"error"})
+app.post("/players", async (req, res) => {
+  console.log("here players", req.body);
+
+  const { tId, name, age, position, number } = req.body;
+
+  try {
+    // Find the team by ID
+    const team = await Team.findById(tId);
+    if (!team) {
+      return res.status(404).json({ msg: "Team not found" });
     }
-    else{
-      team.players.push(doc);
-      team.save();
-      res.json({msg:"player with added succes"});
-    }
-  });
+
+    // Create the new player object
+    let playerToSend = new Player({
+      name: name,
+      age: age,
+      position: position,
+      number: number, // Correct the typo here
+      team: team._id
+    });
+
+    console.log("player to send", playerToSend);
+
+    // Save the player to the database
+    const savedPlayer = await playerToSend.save();
+    
+    // Add the player to the team's player list
+    team.players.push(savedPlayer);
+
+    // Save the updated team
+    await team.save();
+
+    return res.status(201).json({ msg: "Player added successfully" });
+
+  } catch (err) {
+    console.error("Error:", err);
+    return res.status(500).json({ msg: "Error processing request" });
   }
-)
 });
+
 //bl getall players
 app.get("/players",(req,res)=>{
   Player.find().then(
